@@ -28,6 +28,7 @@ public class ConsoleMenu
             {
                 case 1:
                     LoginDipendente();
+                    on = false;
                     break;
                 case 0:
                     on = false;
@@ -68,18 +69,50 @@ public class ConsoleMenu
         Console.WriteLine();
         int idEmployee = MyUtilities.ChiediInt("Selezionare con quale utente entrare");
         ActiveEmployee = db.Employees.Where(x => x.Id == idEmployee).FirstOrDefault();
-        Console.WriteLine("Impiegato loggato: {0}, {1}", ActiveEmployee.Name, ActiveEmployee.Surname);
+        Console.WriteLine("Impiegato loggato: {0} {1}", ActiveEmployee.Name, ActiveEmployee.Surname);
         MyUtilities.Continua();
         MenuDipendente();
     }
 
     public void AggiungiOrdine()
     {
-        Product.PrintProducts(db.Products.ToList());
+        List<Product> products = db.Products.ToList();
+        Product.PrintProducts(products);
         Console.WriteLine();
-        int scelta = MyUtilities.ChiediInt("Scegli il prodotto da inserire nell'ordine");
+        List<Product> list = new List<Product>();
+        bool adding = true;
+        while (adding)
+        {
+            if (list.Count > 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Prodotti nell'ordine:");
+                Product.PrintProducts(list);
+                Console.WriteLine("------------------------");
+                Console.WriteLine();
+                bool continua = MyUtilities.SiNo("Vuoi aggiungere un altro prodotto? (si/no)");
+                if (continua)
+                {
+                    Product.PrintProducts(products);
+                } else
+                {
+                    adding = false;
+                }
+            }
 
+            if (adding)
+            {
+                Console.WriteLine("");
+                int scelta = MyUtilities.ChiediInt("Scegli il prodotto da inserire nell'ordine (ID): ");
+                list.Add(db.Products.Where(x => x.Id == scelta).FirstOrDefault());
+            }
+            
+        }
+
+        Console.WriteLine("inserimento ordine");
     }
+
+
 
     public void ModificaOrdini()
     {
