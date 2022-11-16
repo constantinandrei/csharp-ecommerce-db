@@ -6,8 +6,10 @@
 
 public class ConsoleMenu
 {
+    public Employee ActiveEmployee { get; set; }
     public static void Start()
     {
+        ECommerceContext db = new ECommerceContext();
         bool on = true;
         Console.Clear();
         Console.WriteLine("1. Dipendente");
@@ -22,9 +24,13 @@ public class ConsoleMenu
             {
                 case 1:
                     Console.Clear();
-                    Employee.PrintEmployeesList();
+                    Employee.PrintEmployeesList(db.Employees.ToList());
                     Console.WriteLine();
                     int idEmployee = MyUtilities.ChiediInt("Selezionare con quale utente entrare");
+                    Employee employee = db.Employees.Where(x => x.Id == idEmployee).FirstOrDefault();
+                    Console.WriteLine("Impiegato loggato: {0}, {1}", employee.Name, employee.Surname);
+                    MyUtilities.Continua();
+                    on = false;
                     break;
                 case 9:
                     on = false;

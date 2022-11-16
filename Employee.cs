@@ -10,10 +10,10 @@ public class Employee
     {
         return Convert.ToString(Id).PadLeft(2, ' ') + ". " + Name.PadRight(25, ' ') + Surname.PadRight(25, ' ') + Level;
     }
-    public static void PrintEmployeesList()
+
+    public static void PrintEmployeesList(List<Employee> employees)
     {
-        ECommerceContext db = new ECommerceContext();
-        List<Employee> employees = db.Employees.ToList();
+
         Console.WriteLine(" id nome                     cognome                  livello");
         foreach (Employee employee in employees)
         {
