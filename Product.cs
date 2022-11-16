@@ -6,6 +6,11 @@ public class Product
     public string Description { get; set; }
     public float Price { get; set; }
     public List<Order> Orders { get; set; }
+
+    public override string ToString()
+    {
+        return Convert.ToString(Id).PadLeft(2, ' ') + ". " + Name.PadRight(20, ' ') + Description.PadRight(30, ' ') + "€ " + Convert.ToString(Price).PadLeft(6, ' ');
+    }
     public static void Seed()
     {
         ECommerceContext db = new ECommerceContext();
@@ -24,6 +29,15 @@ public class Product
         {
             db.Products.Add(product);
             db.SaveChanges();
+        }
+    }
+
+    public static void PrintProducts(List<Product> products)
+    {
+        Console.WriteLine(" id nome               descrizione                  prezzo");
+        foreach (Product product in products)
+        {
+            Console.WriteLine(product.ToString());
         }
     }
 }

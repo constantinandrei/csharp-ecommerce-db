@@ -18,7 +18,7 @@ public class ConsoleMenu
         Console.Clear();
         Console.WriteLine("1. Dipendente");
         Console.WriteLine("2. Utente");
-        Console.WriteLine("9. Esci");
+        Console.WriteLine("0. Esci");
         Console.WriteLine();
         int sceltaUtente = MyUtilities.ChiediInt("Selezionare un opzione:");
 
@@ -29,7 +29,7 @@ public class ConsoleMenu
                 case 1:
                     LoginDipendente();
                     break;
-                case 9:
+                case 0:
                     on = false;
                     break;
                 default:
@@ -42,15 +42,19 @@ public class ConsoleMenu
     {
         Console.Clear();
         Console.WriteLine("Impiegato loggato: {0}, {1}", ActiveEmployee.Name, ActiveEmployee.Surname);
-        Console.WriteLine("1. Dipendente");
-        Console.WriteLine("2. Utente");
-        Console.WriteLine("9. Indietro");
+        Console.WriteLine();
+        Console.WriteLine("1. Aggiungi Ordine");
+        Console.WriteLine("2. Modifica Ordini");
+        Console.WriteLine("0. Indietro");
         Console.WriteLine();
         int sceltaUtente = MyUtilities.ChiediInt("Selezionare un opzione:");
         switch (sceltaUtente)
         {
-            case 9:
+            case 0:
                 Start();
+                break;
+            case 1:
+                AggiungiOrdine();
                 break;
             default :
                 break;
@@ -67,5 +71,18 @@ public class ConsoleMenu
         Console.WriteLine("Impiegato loggato: {0}, {1}", ActiveEmployee.Name, ActiveEmployee.Surname);
         MyUtilities.Continua();
         MenuDipendente();
+    }
+
+    public void AggiungiOrdine()
+    {
+        Product.PrintProducts(db.Products.ToList());
+        Console.WriteLine();
+        int scelta = MyUtilities.ChiediInt("Scegli il prodotto da inserire nell'ordine");
+
+    }
+
+    public void ModificaOrdini()
+    {
+       // 
     }
 }
