@@ -42,7 +42,7 @@ public class ConsoleMenu
     public void MenuDipendente()
     {
         Console.Clear();
-        Console.WriteLine("Impiegato loggato: {0}, {1}", ActiveEmployee.Name, ActiveEmployee.Surname);
+        Console.WriteLine("Impiegato loggato: {0} {1}", ActiveEmployee.Name, ActiveEmployee.Surname);
         Console.WriteLine();
         Console.WriteLine("1. Aggiungi Ordine");
         Console.WriteLine("2. Modifica Ordini");
