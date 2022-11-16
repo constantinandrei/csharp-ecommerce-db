@@ -4,4 +4,5 @@
 // Employee.Seed();
 // Customer.Seed();
 
-ConsoleMenu.Start();
+ConsoleMenu comm = new ConsoleMenu();
+comm.Start();

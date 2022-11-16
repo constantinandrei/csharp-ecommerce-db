@@ -7,9 +7,13 @@
 public class ConsoleMenu
 {
     public Employee ActiveEmployee { get; set; }
-    public static void Start()
+    private ECommerceContext db;
+    public ConsoleMenu()
     {
-        ECommerceContext db = new ECommerceContext();
+        db = new ECommerceContext();
+    }
+    public void Start()
+    {
         bool on = true;
         Console.Clear();
         Console.WriteLine("1. Dipendente");
@@ -23,14 +27,7 @@ public class ConsoleMenu
             switch (sceltaUtente)
             {
                 case 1:
-                    Console.Clear();
-                    Employee.PrintEmployeesList(db.Employees.ToList());
-                    Console.WriteLine();
-                    int idEmployee = MyUtilities.ChiediInt("Selezionare con quale utente entrare");
-                    Employee employee = db.Employees.Where(x => x.Id == idEmployee).FirstOrDefault();
-                    Console.WriteLine("Impiegato loggato: {0}, {1}", employee.Name, employee.Surname);
-                    MyUtilities.Continua();
-                    on = false;
+                    LoginDipendente();
                     break;
                 case 9:
                     on = false;
@@ -39,5 +36,36 @@ public class ConsoleMenu
                     break;
             }
         }
+    }
+
+    public void MenuDipendente()
+    {
+        Console.Clear();
+        Console.WriteLine("Impiegato loggato: {0}, {1}", ActiveEmployee.Name, ActiveEmployee.Surname);
+        Console.WriteLine("1. Dipendente");
+        Console.WriteLine("2. Utente");
+        Console.WriteLine("9. Indietro");
+        Console.WriteLine();
+        int sceltaUtente = MyUtilities.ChiediInt("Selezionare un opzione:");
+        switch (sceltaUtente)
+        {
+            case 9:
+                Start();
+                break;
+            default :
+                break;
+        }
+    }
+
+    public void LoginDipendente()
+    {
+        Console.Clear();
+        Employee.PrintEmployeesList(db.Employees.ToList());
+        Console.WriteLine();
+        int idEmployee = MyUtilities.ChiediInt("Selezionare con quale utente entrare");
+        ActiveEmployee = db.Employees.Where(x => x.Id == idEmployee).FirstOrDefault();
+        Console.WriteLine("Impiegato loggato: {0}, {1}", ActiveEmployee.Name, ActiveEmployee.Surname);
+        MyUtilities.Continua();
+        MenuDipendente();
     }
 }
