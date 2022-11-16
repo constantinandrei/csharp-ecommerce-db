@@ -6,7 +6,21 @@ public class Employee
     public string Surname { get; set; }
     public int Level { get; set; }
     public List<Order> Orders { get; set; }
+    public override string ToString()
+    {
+        return Convert.ToString(Id).PadLeft(2, ' ') + ". " + Name.PadRight(25, ' ') + Surname.PadRight(25, ' ') + Level;
+    }
+    public static void PrintEmployeesList()
+    {
+        ECommerceContext db = new ECommerceContext();
+        List<Employee> employees = db.Employees.ToList();
+        Console.WriteLine(" id nome                     cognome                  livello");
+        foreach (Employee employee in employees)
+        {
 
+            Console.WriteLine(employee.ToString());
+        }
+    }
     public static void Seed()
     {
         ECommerceContext db = new ECommerceContext();

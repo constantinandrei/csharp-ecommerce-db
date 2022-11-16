@@ -4,10 +4,4 @@
 // Employee.Seed();
 // Customer.Seed();
 
-public class ConsoleMenu
-{
-    public static void Start()
-    {
-
-    }
-}
+ConsoleMenu.Start();
