@@ -109,7 +109,23 @@ public class ConsoleMenu
             
         }
 
-        Console.WriteLine("inserimento ordine");
+        Console.WriteLine("Inserimento ordine.....");
+
+        float totaleOrdine = 0;
+        foreach (Product product in list)
+        {
+            totaleOrdine += product.Price;
+        }
+        
+        Order order = new Order();
+        order.Products = list;
+        order.Employee = ActiveEmployee;
+        order.Date = new DateTime();
+        order.Amount = totaleOrdine;
+        order.Status = "vendita";
+        db.Orders.Add(order);
+        db.SaveChanges();
+        
     }
 
 
