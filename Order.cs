@@ -10,4 +10,22 @@ public class Order
     public int EmployeeId { get; set; }
     public Employee Employee { get; set; }  
     public List<Product> Products { get; set; }
+    public void Print()
+    {
+        Console.WriteLine("Ordine: " + Convert.ToString(Id));
+        Console.WriteLine("Stato: " + Status);
+        Console.WriteLine("Totale: " + Amount);
+        Console.WriteLine("Dipendente: " + Employee.Name + " " + Employee.Surname);
+        if (Customer != null)
+            Console.WriteLine("Cliente: " + Customer.Name + " " + Customer.Surname);
+        Console.WriteLine("Prodotti: ");
+        if (Products != null)
+        {
+            foreach (var item in Products)
+            {
+                Console.WriteLine(item.ToString());
+            }
+        }
+        
+    }
 }

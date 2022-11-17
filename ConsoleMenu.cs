@@ -4,6 +4,8 @@
 // Employee.Seed();
 // Customer.Seed();
 
+using Microsoft.EntityFrameworkCore;
+
 public class ConsoleMenu
 {
     public Employee ActiveEmployee { get; set; }
@@ -56,6 +58,9 @@ public class ConsoleMenu
                 break;
             case 1:
                 AggiungiOrdine();
+                break;
+            case 2:
+                StampaOrdini();
                 break;
             default :
                 break;
@@ -125,13 +130,25 @@ public class ConsoleMenu
         order.Status = "vendita";
         db.Orders.Add(order);
         db.SaveChanges();
-        
+
+        Console.Clear();
+        Console.WriteLine("Ordine inserito");
+        Console.WriteLine();
+        Order controlOrder = db.Orders.Where(x => x.Id == order.Id).FirstOrDefault();
+        controlOrder.Print();
+        MyUtilities.Continua();
+        MenuDipendente();
     }
 
 
 
-    public void ModificaOrdini()
+    public void StampaOrdini()
     {
-       // 
+       List<Order> ordini = db.Orders.Where(o => o.EmployeeId == ActiveEmployee.Id).Include(o => o.Products).ToList<Order>();
+       foreach (Order order in ordini)
+        {
+            Console.WriteLine(); 
+            order.Print();
+        }
     }
 }
